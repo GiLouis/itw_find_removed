@@ -95,15 +95,24 @@ int find_missing(int size, int * array_ptr)
 	return value;
 }
 
-int main(int argc, char* argv)
+int main(int argc, char* argv[])
 {
-  int * array;
-  int ret = create_array(1000000, &array);
-  if(ret != 0) {
-	  exit(0);
-  }
-  shuffle_array(1000000, array);
-  find_missing(1000000, array);
-  free(array);
-  return 0;
+	if(argc != 2)
+	{
+		printf("Usage: finder <number of elements>\n");
+		exit(0);
+	}
+	
+	int num_elements = atoi(argv[1]);
+	
+	int * array;
+	int ret = create_array(num_elements, &array);
+	if(ret != 0) {
+		free(array);
+		exit(0);
+	}
+	shuffle_array(num_elements, array);
+	find_missing(num_elements, array);
+	free(array);
+	return 0;
 }
